@@ -1,0 +1,764 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Allatoona Estates Trust — Vendor Portal</title>
+  <style>
+    :root{
+      --bg: #0b1220;
+      --panel: rgba(255,255,255,.08);
+      --panel2: rgba(255,255,255,.06);
+      --border: rgba(255,255,255,.14);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.72);
+      --faint: rgba(255,255,255,.55);
+      --brand: #7dd3fc;
+      --brand2:#a78bfa;
+      --good:#34d399;
+      --warn:#fbbf24;
+      --bad:#fb7185;
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --radius: 18px;
+      --radius2: 14px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+
+    *{ box-sizing:border-box; }
+    html, body{ height:100%; }
+    body{
+      margin:0;
+      font-family: var(--sans);
+      color: var(--text);
+      background:
+        radial-gradient(1200px 700px at 10% 15%, rgba(125,211,252,.25), transparent 55%),
+        radial-gradient(900px 650px at 80% 15%, rgba(167,139,250,.20), transparent 55%),
+        radial-gradient(900px 650px at 55% 85%, rgba(52,211,153,.12), transparent 55%),
+        linear-gradient(180deg, #070b14, #0b1220 55%, #060a12);
+      overflow-x:hidden;
+    }
+
+    a{ color: inherit; }
+    .container{
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 26px 18px 72px;
+    }
+
+    /* Top bar */
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding: 14px 16px;
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, rgba(255,255,255,.10), rgba(255,255,255,.05));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 12px;
+      z-index: 5;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width: 240px;
+    }
+    .logo{
+      width:44px; height:44px;
+      border-radius: 14px;
+      background:
+        radial-gradient(circle at 25% 20%, rgba(255,255,255,.95), rgba(255,255,255,.15) 45%, transparent 60%),
+        linear-gradient(135deg, rgba(125,211,252,.85), rgba(167,139,250,.75));
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      position:relative;
+      overflow:hidden;
+    }
+    .logo:after{
+      content:"";
+      position:absolute;
+      inset:-60% -60%;
+      background: radial-gradient(circle at 60% 60%, rgba(255,255,255,.25), transparent 55%);
+      transform: rotate(10deg);
+    }
+    .titleblock{ line-height:1.1; }
+    .titleblock .title{
+      font-weight: 750;
+      letter-spacing: .2px;
+      font-size: 15.5px;
+    }
+    .titleblock .subtitle{
+      color: var(--muted);
+      font-size: 12.5px;
+      margin-top:4px;
+    }
+
+    .pill{
+      font-size: 12px;
+      color: var(--muted);
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.05);
+      padding: 8px 10px;
+      border-radius: 999px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      white-space: nowrap;
+    }
+    .dot{
+      width:8px; height:8px; border-radius: 99px;
+      background: var(--good);
+      box-shadow: 0 0 0 4px rgba(52,211,153,.15);
+    }
+
+    .actions{
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+    button{
+      appearance:none;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 12px;
+      cursor:pointer;
+      font-weight: 650;
+      letter-spacing: .15px;
+      transition: transform .08s ease, background .2s ease, border-color .2s ease;
+    }
+    button:hover{ background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.22); }
+    button:active{ transform: translateY(1px); }
+    button.primary{
+      border-color: rgba(125,211,252,.35);
+      background: linear-gradient(135deg, rgba(125,211,252,.22), rgba(167,139,250,.18));
+    }
+    button.primary:hover{
+      background: linear-gradient(135deg, rgba(125,211,252,.28), rgba(167,139,250,.22));
+    }
+    button.ghost{
+      background: transparent;
+    }
+
+    /* Layout */
+    .grid{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 18px;
+      margin-top: 18px;
+    }
+    @media (max-width: 980px){
+      .grid{ grid-template-columns: 1fr; }
+      .brand{ min-width: unset; }
+      .topbar{ position: static; }
+    }
+
+    .card{
+      border:1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.05));
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+    .card h2{
+      font-size: 14px;
+      margin: 0 0 10px 0;
+      color: rgba(255,255,255,.90);
+      font-weight: 780;
+      letter-spacing: .2px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+    }
+    .card h2 .tag{
+      font-size: 11px;
+      color: var(--muted);
+      border:1px solid var(--border);
+      background: rgba(0,0,0,.12);
+      padding: 6px 8px;
+      border-radius: 999px;
+      font-weight: 650;
+      letter-spacing: .18px;
+    }
+
+    .kv{
+      display:grid;
+      grid-template-columns: 180px 1fr;
+      gap: 10px 14px;
+      padding: 8px 0 2px;
+    }
+    @media (max-width: 560px){
+      .kv{ grid-template-columns: 1fr; }
+      .kv .k{ color: var(--muted); font-size: 12px; }
+    }
+    .k{
+      color: var(--muted);
+      font-size: 12.5px;
+    }
+    .v{
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 600;
+      overflow-wrap:anywhere;
+    }
+
+    .muted{ color: var(--muted); }
+    .note{
+      border:1px dashed rgba(255,255,255,.22);
+      background: rgba(0,0,0,.14);
+      border-radius: var(--radius2);
+      padding: 12px 12px;
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height: 1.35;
+    }
+
+    /* Tables */
+    table{
+      width:100%;
+      border-collapse: collapse;
+      border-spacing: 0;
+      overflow:hidden;
+      border-radius: var(--radius2);
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.10);
+    }
+    th, td{
+      padding: 11px 10px;
+      text-align:left;
+      font-size: 12.7px;
+      border-bottom: 1px solid rgba(255,255,255,.10);
+      vertical-align: top;
+    }
+    th{
+      color: rgba(255,255,255,.78);
+      font-weight: 750;
+      letter-spacing: .18px;
+      background: rgba(255,255,255,.06);
+    }
+    tr:last-child td{ border-bottom:0; }
+    .status{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 6px 9px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .status .s{
+      width:7px;height:7px;border-radius:999px;
+    }
+    .status.pending .s{ background: var(--warn); box-shadow: 0 0 0 4px rgba(251,191,36,.16); }
+    .status.paid .s{ background: var(--good); box-shadow: 0 0 0 4px rgba(52,211,153,.14); }
+    .status.hold .s{ background: var(--bad); box-shadow: 0 0 0 4px rgba(251,113,133,.14); }
+
+    .split{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 720px){
+      .split{ grid-template-columns: 1fr; }
+    }
+
+    /* Login overlay */
+    .overlay{
+      position:fixed;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 24px;
+      background:
+        radial-gradient(700px 420px at 20% 20%, rgba(125,211,252,.20), transparent 65%),
+        radial-gradient(700px 420px at 80% 30%, rgba(167,139,250,.18), transparent 65%),
+        rgba(3,7,18,.62);
+      backdrop-filter: blur(14px);
+      z-index: 20;
+    }
+    .login{
+      width:min(520px, 96vw);
+      padding: 18px;
+      border-radius: 20px;
+      border:1px solid rgba(255,255,255,.16);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+      box-shadow: 0 28px 90px rgba(0,0,0,.55);
+    }
+    .login h1{
+      margin: 0 0 6px 0;
+      font-size: 16px;
+      letter-spacing: .2px;
+      font-weight: 820;
+    }
+    .login p{
+      margin: 0 0 16px 0;
+      color: var(--muted);
+      font-size: 12.8px;
+      line-height: 1.35;
+    }
+
+    .field{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      margin-bottom: 10px;
+    }
+    label{
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 650;
+    }
+    input{
+      width:100%;
+      padding: 12px 12px;
+      border-radius: 12px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.20);
+      color: var(--text);
+      outline:none;
+      font-size: 13px;
+    }
+    input:focus{
+      border-color: rgba(125,211,252,.45);
+      box-shadow: 0 0 0 4px rgba(125,211,252,.16);
+    }
+    .row{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+    .error{
+      display:none;
+      margin-top: 10px;
+      border:1px solid rgba(251,113,133,.35);
+      background: rgba(251,113,133,.08);
+      color: rgba(255,255,255,.85);
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-size: 12.5px;
+    }
+
+    /* Print */
+    @media print {
+      .overlay, .actions{ display:none !important; }
+      .topbar{ position:static; box-shadow:none; }
+      body{ background:white; color:#111; }
+      .card, .topbar{ background:white; border-color:#ddd; }
+      .k, .muted, .note{ color:#333; }
+      table{ border-color:#ddd; }
+      th{ background:#f4f4f4; color:#111; }
+      .status{ border-color:#ddd; background:#f7f7f7; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Login Overlay (client-side only) -->
+  <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+    <div class="login">
+      <h1 id="loginTitle">Allatoona Estates Trust — Vendor Portal</h1>
+      <p>
+        This is a <b>static, client-side demo</b>. For real security (password hashing, MFA, audit logs), use a server-backed portal.
+      </p>
+
+      <div class="field">
+        <label for="username">Username</label>
+        <input id="username" autocomplete="username" placeholder="e.g., AnnaWard" />
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" type="password" autocomplete="current-password" placeholder="••••••••" />
+      </div>
+
+      <div class="row">
+        <button class="primary" id="loginBtn">Sign in</button>
+        <button class="ghost" id="demoFill">Fill demo login</button>
+      </div>
+
+      <div class="error" id="errorBox">
+        Incorrect username or password.
+      </div>
+    </div>
+  </div>
+
+  <div class="container" id="app" aria-hidden="true">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div class="titleblock">
+          <div class="title">Allatoona Estates Trust</div>
+          <div class="subtitle">Vendor Portal • Payments, invoices, and profile</div>
+        </div>
+      </div>
+
+      <div class="pill" title="Status">
+        <span class="dot" aria-hidden="true"></span>
+        <span><span class="muted">Signed in as</span> <b id="signedInAs">Vendor</b></span>
+      </div>
+
+      <div class="actions">
+        <button id="printBtn">Print / Save PDF</button>
+        <button class="primary" id="signOutBtn">Sign out</button>
+      </div>
+    </header>
+
+    <main class="grid">
+      <!-- Left column -->
+      <section class="card">
+        <h2>
+          Vendor Profile
+          <span class="tag">Profile &amp; Contacts</span>
+        </h2>
+
+        <div class="kv">
+          <div class="k">Vendor type</div>
+          <div class="v">Sole Proprietor</div>
+
+          <div class="k">Vendor name</div>
+          <div class="v">Anna Ward</div>
+
+          <div class="k">Business name</div>
+          <div class="v">N/A</div>
+
+          <div class="k">Address</div>
+          <div class="v">1430 Reed Lane, Woodstock, GA 30189</div>
+
+          <div class="k">Phone</div>
+          <div class="v">(770) 403-9210</div>
+
+          <div class="k">Email</div>
+          <div class="v">wandanma8092@gmail.com</div>
+
+          <div class="k">Tax ID / SSN</div>
+          <div class="v"><span class="muted">On file (masked)</span></div>
+        </div>
+
+        <div class="note" style="margin-top:12px">
+          <b>Privacy note:</b> This portal intentionally does not display full SSN or full banking numbers in a static page. Keep those values stored securely and only show masked digits to vendors.
+        </div>
+      </section>
+
+      <!-- Right column -->
+      <aside class="card">
+        <h2>
+          Compliance &amp; Documents
+          <span class="tag">VPCPABF / Insurance</span>
+        </h2>
+
+        <div class="kv">
+          <div class="k">VPCPABF signed</div>
+          <div class="v"><span class="status paid"><span class="s"></span>Yes</span></div>
+
+          <div class="k">Workers comp coverage</div>
+          <div class="v"><span class="status hold"><span class="s"></span>No (vendor reports)</span></div>
+
+          <div class="k">General liability</div>
+          <div class="v"><span class="muted">Not provided</span></div>
+
+          <div class="k">Policy number</div>
+          <div class="v"><span class="muted">Not provided</span></div>
+
+          <div class="k">Certificate of insurance</div>
+          <div class="v"><span class="muted">Not provided</span></div>
+
+          <div class="k">W-9 form</div>
+          <div class="v"><span class="status pending"><span class="s"></span>Pending</span></div>
+        </div>
+
+        <hr style="border:none;border-top:1px solid rgba(255,255,255,.12); margin:14px 0">
+
+        <h2 style="margin-top:0">
+          Payment Terms
+          <span class="tag">Net 30</span>
+        </h2>
+
+        <div class="note">
+          Vendor agreed to <b>Net 30</b> payment terms. Invoices are submitted by the <b>5th</b> for work completed through the <b>30th</b> of the previous month.
+          After processing, invoices move into the next payment cycle.
+        </div>
+      </aside>
+
+      <!-- Full-width section (spans columns) -->
+      <section class="card" style="grid-column: 1 / -1;">
+        <h2>
+          Payment Details
+          <span class="tag">ACH</span>
+        </h2>
+
+        <div class="split">
+          <div>
+            <div class="kv">
+              <div class="k">Payment method</div>
+              <div class="v">ACH</div>
+
+              <div class="k">Account name</div>
+              <div class="v">Anna Ward</div>
+
+              <div class="k">Billing address</div>
+              <div class="v">1430 Reed Lane, Woodstock, GA 30189</div>
+            </div>
+          </div>
+
+          <div>
+            <div class="kv">
+              <div class="k">Bank / Credit Union</div>
+              <div class="v">Credit Union of Georgia</div>
+
+              <div class="k">Routing number</div>
+              <div class="v"><span class="muted">•••1493 (masked)</span></div>
+
+              <div class="k">Account number</div>
+              <div class="v"><span class="muted">•••••0380 (masked)</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="note" style="margin-top: 12px">
+          <b>Signature:</b> Signed in ink on <b>01/09/2026</b> by <b>Anna Ward</b>.
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>
+          Medical
+          <span class="tag">Coverage</span>
+        </h2>
+        <div class="note" id="medicalNote">
+          Not applicable. One Medical coverage is for 90 days from 01/09/2026.
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>
+          Cycle 6 Budget Approved
+          <span class="tag">Budget</span>
+        </h2>
+        <div class="kv">
+          <div class="k">Approved amount</div>
+          <div class="v" style="font-family:var(--mono); font-size: 15px;">
+            $30,000,000.00 USD
+          </div>
+
+          <div class="k">Last updated</div>
+          <div class="v" id="budgetUpdated">01/09/2026</div>
+        </div>
+
+        <div class="note" style="margin-top: 12px">
+          Use this section to communicate approved limits and keep vendor expectations aligned for the cycle.
+        </div>
+      </section>
+
+      <section class="card" style="grid-column: 1 / -1;">
+        <h2>
+          Invoices
+          <span class="tag">PO / Status</span>
+        </h2>
+
+        <div class="note" style="margin-bottom: 12px">
+          <b>Pending review:</b> invoices will appear here as they’re received and entered. You can group by PO and show their current status.
+        </div>
+
+        <div class="split">
+          <div>
+            <h2 style="margin: 0 0 10px 0;">
+              Pending Review
+              <span class="tag">Incoming</span>
+            </h2>
+            <table aria-label="Pending review invoices">
+              <thead>
+                <tr>
+                  <th>PO #</th>
+                  <th>Invoice</th>
+                  <th>Service period</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="pendingBody">
+                <tr>
+                  <td style="color: var(--faint);" colspan="5">No invoices listed yet — pending review.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div>
+            <h2 style="margin: 0 0 10px 0;">
+              Paid
+              <span class="tag">History</span>
+            </h2>
+            <table aria-label="Paid invoices">
+              <thead>
+                <tr>
+                  <th>PO #</th>
+                  <th>Invoice</th>
+                  <th>Paid date</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="paidBody">
+                <tr>
+                  <td style="color: var(--faint);" colspan="5">No paid invoices listed yet.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="note" style="margin-top: 12px">
+          Tip: When you start adding invoices, edit the <span style="font-family:var(--mono)">demoData</span> object in the script at the bottom of this page.
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // ===== Demo credentials (client-side only) =====
+    const CREDENTIALS = { username: "AnnaWard", password: "Georgia@0000" };
+
+    // ===== Demo data for invoice tables (edit as needed) =====
+    const demoData = {
+      signedInAs: "Anna Ward",
+      budgetUpdated: "01/09/2026",
+      medicalStart: "2026-01-09", // ISO format for date math
+      medicalDays: 90,
+      pending: [
+        // { po: "PO-10012", invoice: "INV-001", period: "12/01/2025–12/30/2025", amount: "$1,250.00", status: "Pending review" },
+      ],
+      paid: [
+        // { po: "PO-09941", invoice: "INV-124", paidDate: "01/15/2026", amount: "$950.00", status: "Paid" },
+      ]
+    };
+
+    // ===== Helpers =====
+    const $ = (sel) => document.querySelector(sel);
+
+    function fmtDateUS(d){
+      const mm = String(d.getMonth()+1).padStart(2,'0');
+      const dd = String(d.getDate()).padStart(2,'0');
+      const yyyy = d.getFullYear();
+      return `${mm}/${dd}/${yyyy}`;
+    }
+
+    function renderTables(){
+      const pendingBody = $("#pendingBody");
+      const paidBody = $("#paidBody");
+
+      // pending
+      if(!demoData.pending.length){
+        pendingBody.innerHTML = `<tr><td style="color: var(--faint);" colspan="5">No invoices listed yet — pending review.</td></tr>`;
+      } else {
+        pendingBody.innerHTML = demoData.pending.map(r => `
+          <tr>
+            <td>${r.po}</td>
+            <td>${r.invoice}</td>
+            <td>${r.period}</td>
+            <td style="font-family: var(--mono)">${r.amount}</td>
+            <td><span class="status pending"><span class="s"></span>${r.status}</span></td>
+          </tr>
+        `).join("");
+      }
+
+      // paid
+      if(!demoData.paid.length){
+        paidBody.innerHTML = `<tr><td style="color: var(--faint);" colspan="5">No paid invoices listed yet.</td></tr>`;
+      } else {
+        paidBody.innerHTML = demoData.paid.map(r => `
+          <tr>
+            <td>${r.po}</td>
+            <td>${r.invoice}</td>
+            <td>${r.paidDate}</td>
+            <td style="font-family: var(--mono)">${r.amount}</td>
+            <td><span class="status paid"><span class="s"></span>${r.status}</span></td>
+          </tr>
+        `).join("");
+      }
+    }
+
+    function renderMedical(){
+      const start = new Date(demoData.medicalStart + "T00:00:00");
+      const end = new Date(start);
+      end.setDate(end.getDate() + demoData.medicalDays);
+
+      $("#medicalNote").innerHTML =
+        `Not applicable. One Medical coverage is for <b>${demoData.medicalDays} days</b> from <b>${fmtDateUS(start)}</b> through <b>${fmtDateUS(end)}</b>.`;
+    }
+
+    function init(){
+      $("#signedInAs").textContent = demoData.signedInAs;
+      $("#budgetUpdated").textContent = demoData.budgetUpdated;
+      renderTables();
+      renderMedical();
+    }
+
+    // ===== Login / logout =====
+    const overlay = $("#overlay");
+    const app = $("#app");
+    const errorBox = $("#errorBox");
+
+    function setAuthed(authed){
+      if(authed){
+        overlay.style.display = "none";
+        app.removeAttribute("aria-hidden");
+        try { sessionStorage.setItem("authed", "1"); } catch(e) {}
+      } else {
+        overlay.style.display = "flex";
+        app.setAttribute("aria-hidden","true");
+        try { sessionStorage.removeItem("authed"); } catch(e) {}
+      }
+    }
+
+    function attemptLogin(){
+      const u = $("#username").value.trim();
+      const p = $("#password").value;
+
+      const ok = (u === CREDENTIALS.username && p === CREDENTIALS.password);
+      errorBox.style.display = ok ? "none" : "block";
+      if(ok){
+        init();
+        setAuthed(true);
+      }
+    }
+
+    $("#loginBtn").addEventListener("click", attemptLogin);
+    $("#demoFill").addEventListener("click", () => {
+      $("#username").value = CREDENTIALS.username;
+      $("#password").value = CREDENTIALS.password;
+      errorBox.style.display = "none";
+      $("#password").focus();
+    });
+
+    $("#password").addEventListener("keydown", (e) => {
+      if(e.key === "Enter") attemptLogin();
+    });
+    $("#username").addEventListener("keydown", (e) => {
+      if(e.key === "Enter") attemptLogin();
+    });
+
+    $("#signOutBtn").addEventListener("click", () => setAuthed(false));
+    $("#printBtn").addEventListener("click", () => window.print());
+
+    // Restore session if allowed
+    try{
+      if(sessionStorage.getItem("authed") === "1"){
+        init();
+        setAuthed(true);
+      }
+    } catch(e) {}
+  </script>
+</body>
+</html>
