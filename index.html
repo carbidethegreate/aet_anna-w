@@ -371,7 +371,7 @@
     <div class="login">
       <h1 id="loginTitle">Allatoona Estates Trust — Vendor Portal</h1>
       <p>
-        </b>. 
+        Sign in to review payment details, compliance items, and invoice history.
       </p>
 
       <div class="field">
@@ -385,7 +385,6 @@
 
       <div class="row">
         <button class="primary" id="loginBtn">Sign in</button>
-        <button class="ghost" id="demoFill"></button>
       </div>
 
       <div class="error" id="errorBox">
@@ -627,427 +626,140 @@
   </div>
 
   <script>
-    // ===== Demo credentials (client-side only) =====
+    // ===== Credentials (client-side only) =====
     const CREDENTIALS = { username: "AnnaWard", password: "Georgia@0000" };
 
-    // ===== Demo data for invoice tables (edit as needed) =====
-const demoData = {
-  signedInAs: "Anna Ward",
-  budgetUpdated: "01/09/2026",
+    // ===== Data for invoice tables (edit as needed) =====
+    const demoData = {
+      signedInAs: "Anna Ward",
+      budgetUpdated: "01/09/2026",
+      medicalStart: "01/09/2026",
+      medicalDays: 90,
 
-  // ===== Policy reference placeholders =====
-  // Invoices must be submitted by the 5th
-  // Coverage is through the 30th of the previous month
-  policyCalendar: [
-    { month: "January 2026", submitBy: "01/05/2026", coversWorkThrough: "12/30/2025", normalACH: "01/30/2026" },
-    { month: "February 2026", submitBy: "02/05/2026", coversWorkThrough: "01/30/2026", normalACH: "02/27/2026" },
-    { month: "March 2026", submitBy: "03/05/2026", coversWorkThrough: "02/27/2026", normalACH: "03/30/2026" },
-    { month: "April 2026", submitBy: "04/05/2026", coversWorkThrough: "03/30/2026", normalACH: "04/30/2026" },
-    { month: "May 2026", submitBy: "05/05/2026", coversWorkThrough: "04/30/2026", normalACH: "05/29/2026" },
-    { month: "June 2026", submitBy: "06/05/2026", coversWorkThrough: "05/30/2026", normalACH: "06/30/2026" },
-    { month: "July 2026", submitBy: "07/05/2026", coversWorkThrough: "06/30/2026", normalACH: "07/30/2026" },
-    { month: "August 2026", submitBy: "08/05/2026", coversWorkThrough: "07/30/2026", normalACH: "08/28/2026" },
-    { month: "September 2026", submitBy: "09/05/2026", coversWorkThrough: "08/30/2026", normalACH: "09/30/2026" },
-    { month: "October 2026", submitBy: "10/05/2026", coversWorkThrough: "09/30/2026", normalACH: "10/30/2026" },
-    { month: "November 2026", submitBy: "11/05/2026", coversWorkThrough: "10/30/2026", normalACH: "11/30/2026" },
-    { month: "December 2026", submitBy: "12/05/2026", coversWorkThrough: "11/30/2026", normalACH: "12/30/2026" }
-  ],
+      pending: [
+        {
+          po: "PO-2026-6643-HH",
+          invoice: "Invoice number not provided",
+          period: "12/23/2025",
+          amount: "$250.00",
+          status: "Override Requested-ACH 01/27/2026"
+        },
+        {
+          po: "PO-2026-6643-HH",
+          invoice: "Invoice number not provided",
+          period: "12/24/2025",
+          amount: "$250.00",
+          status: "Override Requested-ACH 01/27/2026"
+        },
+        {
+          po: "PO-2026-6643-HH",
+          invoice: "Invoice number not provided",
+          period: "12/26/2025",
+          amount: "$250.00",
+          status: "Override Requested-ACH 01/27/2026"
+        },
+        {
+          po: "PO-2026-6643-HH",
+          invoice: "Invoice number not provided",
+          period: "12/29/2025",
+          amount: "$250.00",
+          status: "Override Requested-ACH 01/27/2026"
+        },
+        {
+          po: "PO-2026-6643-HH",
+          invoice: "Invoice number not provided",
+          period: "12/30/2025",
+          amount: "$250.00",
+          status: "Override Requested-ACH 01/27/2026"
+        },
+        {
+          po: "PO-2026-6643-HH",
+          invoice: "Invoice number not provided",
+          period: "12/31/2025",
+          amount: "$250.00",
+          status: "Override Requested-ACH 01/27/2026"
+        },
+        {
+          po: "PO-2026-6643-HH",
+          invoice: "Invoice number not provided",
+          period: "01/01/2026",
+          amount: "$250.00",
+          status: "Rejected-Out of Range"
+        },
+        {
+          po: "PO-2026-6643-HH",
+          invoice: "Invoice number not provided",
+          period: "01/02/2026",
+          amount: "$250.00",
+          status: "Rejected-Out of Range"
+        },
+        {
+          po: "PO-2026-6643-HH",
+          invoice: "Invoice number not provided",
+          period: "01/05/2026",
+          amount: "$250.00",
+          status: "Rejected-Out of Range"
+        },
+        {
+          po: "PO-2026-6643-HH",
+          invoice: "Invoice number not provided",
+          period: "01/06/2026",
+          amount: "$250.00",
+          status: "Rejected-Out of Range"
+        },
+        {
+          po: "PO-2026-6643-HH",
+          invoice: "Invoice number not provided",
+          period: "01/07/2026",
+          amount: "$250.00",
+          status: "Rejected-Out of Range"
+        },
+        {
+          po: "PO-2026-6643-HH",
+          invoice: "Invoice number not provided",
+          period: "01/08/2026",
+          amount: "$250.00",
+          status: "Rejected-Out of Range"
+        },
+        {
+          po: "PO-2026-6643-HH",
+          invoice: "Invoice number not provided",
+          period: "01/09/2026",
+          amount: "$250.00",
+          status: "Rejected-Out of Range"
+        },
+        {
+          po: "PO-2026-6643-HH",
+          invoice: "Invoice number not provided",
+          period: "01/12/2026",
+          amount: "$250.00",
+          status: "Rejected-Out of Range"
+        },
+        {
+          po: "PO-2026-6643-HH",
+          invoice: "Invoice number not provided",
+          period: "01/13/2026",
+          amount: "$250.00",
+          status: "Rejected-Out of Range"
+        },
+        {
+          po: "PO-2026-6643-HH",
+          invoice: "Invoice number not provided",
+          period: "01/14/2026",
+          amount: "$250.00",
+          status: "Rejected-Out of Range"
+        },
+        {
+          po: "PO-2026-6643-HH",
+          invoice: "Invoice number not provided",
+          period: "01/15/2026",
+          amount: "$250.00",
+          status: "Rejected-Out of Range"
+        }
+      ],
 
-  // ===== Final Invoice Ledger =====
-// ===== Invoice handling =====
-pending: [
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided - Submitted 01/11/2026",
-    period: "12/23/2025–01/15/2026",
-    amount: "$4,500.00",
-    status: "Rejected-Late Submission / Out of Range",
-    note: "Voided at vendor request to adjust billing from calendar year average to per day worked rate of $250."
-  },
-
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "12/23/2025",
-    amount: "$187.50",
-    status: "Override Requested-ACH 01/24/2026",
-    note: "Voided at vendor request to adjust billing from calendar year average to per day worked rate of $250."
-  },
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "12/24/2025",
-    amount: "$187.50",
-    status: "Override Requested-ACH 01/24/2026",
-    note: "Voided at vendor request to adjust billing from calendar year average to per day worked rate of $250."
-  },
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "12/25/2025",
-    amount: "$187.50",
-    status: "Override Requested-ACH 01/24/2026",
-    note: "Voided at vendor request to adjust billing from calendar year average to per day worked rate of $250."
-  },
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "12/26/2025",
-    amount: "$187.50",
-    status: "Override Requested-ACH 01/24/2026",
-    note: "Voided at vendor request to adjust billing from calendar year average to per day worked rate of $250."
-  },
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "12/27/2025",
-    amount: "$187.50",
-    status: "Override Requested-ACH 01/24/2026",
-    note: "Voided at vendor request to adjust billing from calendar year average to per day worked rate of $250."
-  },
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "12/28/2025",
-    amount: "$187.50",
-    status: "Override Requested-ACH 01/24/2026",
-    note: "Voided at vendor request to adjust billing from calendar year average to per day worked rate of $250."
-  },
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "12/29/2025",
-    amount: "$187.50",
-    status: "Override Requested-ACH 01/24/2026",
-    note: "Voided at vendor request to adjust billing from calendar year average to per day worked rate of $250."
-  },
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "12/30/2025",
-    amount: "$187.50",
-    status: "Override Requested-ACH 01/24/2026",
-    note: "Voided at vendor request to adjust billing from calendar year average to per day worked rate of $250."
-  },
-
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "12/31/2025",
-    amount: "$187.50",
-    status: "Rejected-Out of Range",
-    note: "Voided at vendor request to adjust billing from calendar year average to per day worked rate of $250."
-  },
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "01/01/2026",
-    amount: "$187.50",
-    status: "Rejected-Out of Range",
-    note: "Voided at vendor request to adjust billing from calendar year average to per day worked rate of $250."
-  },
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "01/02/2026",
-    amount: "$187.50",
-    status: "Rejected-Out of Range",
-    note: "Voided at vendor request to adjust billing from calendar year average to per day worked rate of $250."
-  },
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "01/03/2026",
-    amount: "$187.50",
-    status: "Rejected-Out of Range",
-    note: "Voided at vendor request to adjust billing from calendar year average to per day worked rate of $250."
-  },
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "01/04/2026",
-    amount: "$187.50",
-    status: "Rejected-Out of Range",
-    note: "Voided at vendor request to adjust billing from calendar year average to per day worked rate of $250."
-  },
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "01/05/2026",
-    amount: "$187.50",
-    status: "Rejected-Out of Range",
-    note: "Voided at vendor request to adjust billing from calendar year average to per day worked rate of $250."
-  },
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "01/06/2026",
-    amount: "$187.50",
-    status: "Rejected-Out of Range",
-    note: "Voided at vendor request to adjust billing from calendar year average to per day worked rate of $250."
-  },
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "01/07/2026",
-    amount: "$187.50",
-    status: "Rejected-Out of Range",
-    note: "Voided at vendor request to adjust billing from calendar year average to per day worked rate of $250."
-  },
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "01/08/2026",
-    amount: "$187.50",
-    status: "Rejected-Out of Range",
-    note: "Voided at vendor request to adjust billing from calendar year average to per day worked rate of $250."
-  },
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "01/09/2026",
-    amount: "$187.50",
-    status: "Rejected-Out of Range",
-    note: "Voided at vendor request to adjust billing from calendar year average to per day worked rate of $250."
-  },
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "01/10/2026",
-    amount: "$187.50",
-    status: "Rejected-Out of Range",
-    note: "Voided at vendor request to adjust billing from calendar year average to per day worked rate of $250."
-  },
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "01/11/2026",
-    amount: "$187.50",
-    status: "Rejected-Out of Range",
-    note: "Voided at vendor request to adjust billing from calendar year average to per day worked rate of $250."
-  },
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "01/12/2026",
-    amount: "$187.50",
-    status: "Rejected-Out of Range",
-    note: "Voided at vendor request to adjust billing from calendar year average to per day worked rate of $250."
-  },
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "01/13/2026",
-    amount: "$187.50",
-    status: "Rejected-Out of Range",
-    note: "Voided at vendor request to adjust billing from calendar year average to per day worked rate of $250."
-  },
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "01/14/2026",
-    amount: "$187.50",
-    status: "Rejected-Out of Range",
-    note: "Voided at vendor request to adjust billing from calendar year average to per day worked rate of $250."
-  },
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "01/15/2026",
-    amount: "$187.50",
-    status: "Rejected-Out of Range",
-    note: "Voided at vendor request to adjust billing from calendar year average to per day worked rate of $250."
-  }
-],
-
-paid: []
-};
-// ===== Final Invoice Ledger =====
-pending: [
-
-  // ===== Rebill entries at $250 per day =====
-
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "12/23/2025",
-    amount: "$250.00",
-    status: "Override Requested-ACH 01/27/2026"
-  },
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "12/24/2025",
-    amount: "$250.00",
-    status: "Override Requested-ACH 01/27/2026"
-  },
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "12/26/2025",
-    amount: "$250.00",
-    status: "Override Requested-ACH 01/27/2026"
-  },
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "12/29/2025",
-    amount: "$250.00",
-    status: "Override Requested-ACH 01/27/2026"
-  },
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "12/30/2025",
-    amount: "$250.00",
-    status: "Override Requested-ACH 01/27/2026"
-  },
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "12/31/2025",
-    amount: "$250.00",
-    status: "Override Requested-ACH 01/27/2026"
-  },
-
-  // ===== Out-of-range rebill entries ($250/day) =====
-
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "01/01/2026",
-    amount: "$250.00",
-    status: "Rejected-Out of Range"
-  },
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "01/02/2026",
-    amount: "$250.00",
-    status: "Rejected-Out of Range"
-  },
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "01/05/2026",
-    amount: "$250.00",
-    status: "Rejected-Out of Range"
-  },
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "01/06/2026",
-    amount: "$250.00",
-    status: "Rejected-Out of Range"
-  },
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "01/07/2026",
-    amount: "$250.00",
-    status: "Rejected-Out of Range"
-  },
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "01/08/2026",
-    amount: "$250.00",
-    status: "Rejected-Out of Range"
-  },
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "01/09/2026",
-    amount: "$250.00",
-    status: "Rejected-Out of Range"
-  },
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "01/12/2026",
-    amount: "$250.00",
-    status: "Rejected-Out of Range"
-  },
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "01/13/2026",
-    amount: "$250.00",
-    status: "Rejected-Out of Range"
-  },
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "01/14/2026",
-    amount: "$250.00",
-    status: "Rejected-Out of Range"
-  },
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "01/15/2026",
-    amount: "$250.00",
-    status: "Rejected-Out of Range"
-  },
-
-  // ===== Historical voided entries (superseded) =====
-
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided - Submitted 01/11/2026",
-    period: "12/23/2025–01/15/2026",
-    amount: "$4,500.00",
-    status: "Rejected-Late Submission / Out of Range",
-    note: "Voided at vendor request to adjust billing from calendar year average to per day worked rate of $250."
-  },
-
-  // Per-day historical voids ($187.50)
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "12/23/2025",
-    amount: "$187.50",
-    status: "Override Requested-ACH 01/24/2026",
-    note: "Voided at vendor request to adjust billing from calendar year average to per day worked rate of $250."
-  },
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "12/24/2025",
-    amount: "$187.50",
-    status: "Override Requested-ACH 01/24/2026",
-    note: "Voided at vendor request to adjust billing from calendar year average to per day worked rate of $250."
-  },
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "12/25/2025",
-    amount: "$187.50",
-    status: "Override Requested-ACH 01/24/2026",
-    note: "Voided at vendor request to adjust billing from calendar year average to per day worked rate of $250."
-  },
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "12/26/2025",
-    amount: "$187.50",
-    status: "Override Requested-ACH 01/24/2026",
-    note: "Voided at vendor request to adjust billing from calendar year average to per day worked rate of $250."
-  },
-
-  // Out-of-range historical voids
-  {
-    po: "PO-2026-6643-HH",
-    invoice: "Invoice number not provided",
-    period: "01/01/2026",
-    amount: "$187.50",
-    status: "Rejected-Out of Range",
-    note: "Voided at vendor request to adjust billing from calendar year average to per day worked rate of $250."
-  }
-],
-
-paid: []
-};
+      paid: []
+    };
 
 
 
@@ -1145,13 +857,6 @@ paid: []
     }
 
     $("#loginBtn").addEventListener("click", attemptLogin);
-    $("#demoFill").addEventListener("click", () => {
-      $("#username").value = CREDENTIALS.username;
-      $("#password").value = CREDENTIALS.password;
-      errorBox.style.display = "none";
-      $("#password").focus();
-    });
-
     $("#password").addEventListener("keydown", (e) => {
       if(e.key === "Enter") attemptLogin();
     });
