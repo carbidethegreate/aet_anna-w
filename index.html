@@ -41,7 +41,7 @@
 
     a{ color: inherit; }
     .container{
-      max-width: 1120px;
+      max-width: 1400px;
       margin: 0 auto;
       padding: 26px 18px 72px;
     }
@@ -230,7 +230,6 @@
       border-radius: var(--radius2);
       border:1px solid rgba(255,255,255,.14);
       background: rgba(0,0,0,.10);
-      table-layout: fixed;
     }
     th, td{
       padding: 11px 10px;
@@ -238,7 +237,6 @@
       font-size: 12.7px;
       border-bottom: 1px solid rgba(255,255,255,.10);
       vertical-align: top;
-      overflow-wrap:anywhere;
     }
     tr.note-row td{
       background: rgba(255,255,255,.03);
@@ -266,14 +264,15 @@
       border:1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.06);
       font-weight: 700;
-      white-space: normal;
+      white-space: nowrap;
     }
     .status .s{
       width:7px;height:7px;border-radius:999px;
     }
-    .status.pending .s{ background: var(--bad); box-shadow: 0 0 0 4px rgba(251,113,133,.20); }
+    .status.pending .s{ background: var(--warn); box-shadow: 0 0 0 4px rgba(251,191,36,.16); }
     .status.paid .s{ background: var(--good); box-shadow: 0 0 0 4px rgba(52,211,153,.14); }
     .status.hold .s{ background: var(--bad); box-shadow: 0 0 0 4px rgba(251,113,133,.14); }
+    .status.flag-red .s{ background: var(--bad); box-shadow: 0 0 0 4px rgba(251,113,133,.20); }
 
     .split{
       display:grid;
@@ -993,32 +992,40 @@ const demoData = {
       if(!demoData.pending.length){
         pendingBody.innerHTML = `<tr><td style="color: var(--faint);" colspan="5">No invoices listed yet — pending review.</td></tr>`;
       } else {
-        pendingBody.innerHTML = demoData.pending.map(r => `
+        const notePhrase = "Voided at vendor request to adjust billing from calendar year average to per day worked rate of $250.";
+        pendingBody.innerHTML = demoData.pending.map(r => {
+          const hasRed = !!(r.note && r.note.includes(notePhrase));
+          const statusClass = `status pending${hasRed ? ' flag-red' : ''}`;
+          return `
           <tr>
             <td>${r.po}</td>
             <td>${r.invoice}</td>
             <td>${r.period || ''}</td>
             <td style="font-family: var(--mono)">${r.amount}</td>
-            <td><span class="status pending"><span class="s"></span>${r.status}</span></td>
+            <td><span class="${statusClass}"><span class="s"></span>${r.status}</span></td>
           </tr>
-          ${r.note ? `<tr class="note-row"><td colspan="5"><div class="invoice-note">${r.note}</div></td></tr>` : ``}
-        `).join("");
+          ${r.note ? `<tr class="note-row"><td colspan=\"5\"><div class=\"invoice-note\">${r.note}</div></td></tr>` : ``}
+          `;
+        }).join("");
       }
 
       // paid
       if(!demoData.paid.length){
         paidBody.innerHTML = `<tr><td style="color: var(--faint);" colspan="5">No paid invoices listed yet.</td></tr>`;
       } else {
-        paidBody.innerHTML = demoData.paid.map(r => `
+        paidBody.innerHTML = demoData.paid.map(r => {
+          const statusClass = `status paid`;
+          return `
           <tr>
             <td>${r.po}</td>
             <td>${r.invoice}</td>
             <td>${r.paidDate || ''}</td>
             <td style="font-family: var(--mono)">${r.amount}</td>
-            <td><span class="status paid"><span class="s"></span>${r.status}</span></td>
+            <td><span class="${statusClass}"><span class="s"></span>${r.status}</span></td>
           </tr>
-          ${r.note ? `<tr class="note-row"><td colspan="5"><div class="invoice-note">${r.note}</div></td></tr>` : ``}
-        `).join("");
+          ${r.note ? `<tr class=\"note-row\"><td colspan=\"5\"><div class=\"invoice-note\">${r.note}</div></td></tr>` : ``}
+          `;
+        }).join("");
       }
     }
 
