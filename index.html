@@ -230,6 +230,7 @@
       border-radius: var(--radius2);
       border:1px solid rgba(255,255,255,.14);
       background: rgba(0,0,0,.10);
+      table-layout: fixed;
     }
     th, td{
       padding: 11px 10px;
@@ -237,6 +238,7 @@
       font-size: 12.7px;
       border-bottom: 1px solid rgba(255,255,255,.10);
       vertical-align: top;
+      overflow-wrap:anywhere;
     }
     tr.note-row td{
       background: rgba(255,255,255,.03);
@@ -264,12 +266,12 @@
       border:1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.06);
       font-weight: 700;
-      white-space: nowrap;
+      white-space: normal;
     }
     .status .s{
       width:7px;height:7px;border-radius:999px;
     }
-    .status.pending .s{ background: var(--warn); box-shadow: 0 0 0 4px rgba(251,191,36,.16); }
+    .status.pending .s{ background: var(--bad); box-shadow: 0 0 0 4px rgba(251,113,133,.20); }
     .status.paid .s{ background: var(--good); box-shadow: 0 0 0 4px rgba(52,211,153,.14); }
     .status.hold .s{ background: var(--bad); box-shadow: 0 0 0 4px rgba(251,113,133,.14); }
 
@@ -680,77 +682,77 @@ const demoData = {
       invoice: "Invoice number not provided",
       period: "01/01/2026",
       amount: "$250.00",
-      status: "Rejected-Out of Range"
+      status: "Pending next cycle"
     },
     {
       po: "PO-2026-6643-HH",
       invoice: "Invoice number not provided",
       period: "01/02/2026",
       amount: "$250.00",
-      status: "Rejected-Out of Range"
+      status: "Pending next cycle"
     },
     {
       po: "PO-2026-6643-HH",
       invoice: "Invoice number not provided",
       period: "01/05/2026",
       amount: "$250.00",
-      status: "Rejected-Out of Range"
+      status: "Pending next cycle"
     },
     {
       po: "PO-2026-6643-HH",
       invoice: "Invoice number not provided",
       period: "01/06/2026",
       amount: "$250.00",
-      status: "Rejected-Out of Range"
+      status: "Pending next cycle"
     },
     {
       po: "PO-2026-6643-HH",
       invoice: "Invoice number not provided",
       period: "01/07/2026",
       amount: "$250.00",
-      status: "Rejected-Out of Range"
+      status: "Pending next cycle"
     },
     {
       po: "PO-2026-6643-HH",
       invoice: "Invoice number not provided",
       period: "01/08/2026",
       amount: "$250.00",
-      status: "Rejected-Out of Range"
+      status: "Pending next cycle"
     },
     {
       po: "PO-2026-6643-HH",
       invoice: "Invoice number not provided",
       period: "01/09/2026",
       amount: "$250.00",
-      status: "Rejected-Out of Range"
+      status: "Pending next cycle"
     },
     {
       po: "PO-2026-6643-HH",
       invoice: "Invoice number not provided",
       period: "01/12/2026",
       amount: "$250.00",
-      status: "Rejected-Out of Range"
+      status: "Pending next cycle"
     },
     {
       po: "PO-2026-6643-HH",
       invoice: "Invoice number not provided",
       period: "01/13/2026",
       amount: "$250.00",
-      status: "Rejected-Out of Range"
+      status: "Pending next cycle"
     },
     {
       po: "PO-2026-6643-HH",
       invoice: "Invoice number not provided",
       period: "01/14/2026",
       amount: "$250.00",
-      status: "Rejected-Out of Range"
+      status: "Pending next cycle"
     },
     {
       po: "PO-2026-6643-HH",
       invoice: "Invoice number not provided",
       period: "01/15/2026",
       amount: "$250.00",
-      status: "Rejected-Out of Range"
+      status: "Pending next cycle"
     },
 
     // ===== Invoice handling =====
