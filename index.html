@@ -283,8 +283,8 @@
       background:
         radial-gradient(700px 420px at 20% 20%, rgba(125,211,252,.20), transparent 65%),
         radial-gradient(700px 420px at 80% 30%, rgba(167,139,250,.18), transparent 65%),
-        rgba(3,7,18,.62);
-      backdrop-filter: blur(14px);
+        rgba(7,11,20,1);
+      backdrop-filter: none;
       z-index: 20;
     }
     .login{
@@ -374,23 +374,24 @@
         Sign in to view invoices, policy reminders, and vendor details.
       </p>
 
-      <div class="field">
-        <label for="username">Username</label>
-        <input id="username" autocomplete="username" placeholder="e.g., AnnaWard" />
-      </div>
-      <div class="field">
-        <label for="password">Password</label>
-        <input id="password" type="password" autocomplete="current-password" placeholder="••••••••" />
-      </div>
+      <form id="loginForm" novalidate>
+        <div class="field">
+          <label for="username">Username</label>
+          <input id="username" autocomplete="username" placeholder="e.g., AnnaWard" />
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input id="password" type="password" autocomplete="current-password" placeholder="••••••••" />
+        </div>
 
-      <div class="row">
-        <button class="primary" id="loginBtn" type="button">Sign in</button>
-        <button class="ghost" id="demoFill" type="button">Autofill credentials</button>
-      </div>
+        <div class="row">
+          <button class="primary" id="loginBtn" type="submit">Sign in</button>
+        </div>
 
-      <div class="error" id="errorBox">
-        Incorrect username or password.
-      </div>
+        <div class="error" id="errorBox">
+          Incorrect username or password.
+        </div>
+      </form>
     </div>
   </div>
 
@@ -1136,8 +1137,10 @@ paid: []
       const u = $("#username").value.trim();
       const p = $("#password").value.trim();
 
+      const normalizedU = u.replace(/\s+/g, '').toLowerCase();
+      const normalizedCred = CREDENTIALS.username.replace(/\s+/g, '').toLowerCase();
       const ok = (
-        u.toLowerCase() === CREDENTIALS.username.toLowerCase() &&
+        normalizedU === normalizedCred &&
         p === CREDENTIALS.password
       );
       errorBox.style.display = ok ? "none" : "block";
@@ -1147,19 +1150,9 @@ paid: []
       }
     }
 
-    $("#loginBtn").addEventListener("click", attemptLogin);
-    $("#demoFill").addEventListener("click", () => {
-      $("#username").value = CREDENTIALS.username;
-      $("#password").value = CREDENTIALS.password;
-      errorBox.style.display = "none";
-      $("#password").focus();
-    });
-
-    $("#password").addEventListener("keydown", (e) => {
-      if(e.key === "Enter") attemptLogin();
-    });
-    $("#username").addEventListener("keydown", (e) => {
-      if(e.key === "Enter") attemptLogin();
+    $("#loginForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      attemptLogin();
     });
 
     $("#signOutBtn").addEventListener("click", () => setAuthed(false));
