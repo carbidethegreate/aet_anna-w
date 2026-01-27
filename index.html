@@ -674,50 +674,6 @@ const demoData = {
   // ===== Corrected per-day billing entries ($250/day) =====
   pending: [
 
-    // In-range days rebilled at $250 per day
-    {
-      po: "PO-2026-6643-HH",
-      invoice: "Invoice number not provided",
-      period: "12/23/2025",
-      amount: "$250.00",
-      status: "Override Requested-ACH 01/27/2026"
-    },
-    {
-      po: "PO-2026-6643-HH",
-      invoice: "Invoice number not provided",
-      period: "12/24/2025",
-      amount: "$250.00",
-      status: "Override Requested-ACH 01/27/2026"
-    },
-    {
-      po: "PO-2026-6643-HH",
-      invoice: "Invoice number not provided",
-      period: "12/26/2025",
-      amount: "$250.00",
-      status: "Override Requested-ACH 01/27/2026"
-    },
-    {
-      po: "PO-2026-6643-HH",
-      invoice: "Invoice number not provided",
-      period: "12/29/2025",
-      amount: "$250.00",
-      status: "Override Requested-ACH 01/27/2026"
-    },
-    {
-      po: "PO-2026-6643-HH",
-      invoice: "Invoice number not provided",
-      period: "12/30/2025",
-      amount: "$250.00",
-      status: "Override Requested-ACH 01/27/2026"
-    },
-    {
-      po: "PO-2026-6643-HH",
-      invoice: "Invoice number not provided",
-      period: "12/31/2025",
-      amount: "$250.00",
-      status: "Override Requested-ACH 01/27/2026"
-    },
-
     // Out-of-range days, deferred automatically to next cycle ($250/day)
     {
       po: "PO-2026-6643-HH",
@@ -803,8 +759,7 @@ const demoData = {
       invoice: "Invoice number not provided - Submitted 01/11/2026",
       period: "12/23/2025–01/15/2026",
       amount: "$4,500.00",
-      status: "Rejected-Late Submission / Out of Range",
-      note: "Voided at vendor request to adjust billing from calendar year average to per day worked rate of $250."
+      status: "Rejected-Late Submission / Out of Range"
     },
 
     {
@@ -1002,7 +957,15 @@ const demoData = {
     }
   ],
 
-  paid: []
+  paid: [
+    // Moved from pending: in-range days rebilled at $250 per day, ACH 01/27/2026
+    { po: "PO-2026-6643-HH", invoice: "Invoice number not provided", paidDate: "01/27/2026", amount: "$250.00", status: "ACH 01/27/2026" },
+    { po: "PO-2026-6643-HH", invoice: "Invoice number not provided", paidDate: "01/27/2026", amount: "$250.00", status: "ACH 01/27/2026" },
+    { po: "PO-2026-6643-HH", invoice: "Invoice number not provided", paidDate: "01/27/2026", amount: "$250.00", status: "ACH 01/27/2026" },
+    { po: "PO-2026-6643-HH", invoice: "Invoice number not provided", paidDate: "01/27/2026", amount: "$250.00", status: "ACH 01/27/2026" },
+    { po: "PO-2026-6643-HH", invoice: "Invoice number not provided", paidDate: "01/27/2026", amount: "$250.00", status: "ACH 01/27/2026" },
+    { po: "PO-2026-6643-HH", invoice: "Invoice number not provided", paidDate: "01/27/2026", amount: "$250.00", status: "ACH 01/27/2026" }
+  ]
 };
 
 
@@ -1032,7 +995,7 @@ const demoData = {
           <tr>
             <td>${r.po}</td>
             <td>${r.invoice}</td>
-            <td>${r.period}</td>
+            <td>${r.period || ''}</td>
             <td style="font-family: var(--mono)">${r.amount}</td>
             <td><span class="status pending"><span class="s"></span>${r.status}</span></td>
           </tr>
@@ -1048,7 +1011,7 @@ const demoData = {
           <tr>
             <td>${r.po}</td>
             <td>${r.invoice}</td>
-            <td>${r.paidDate}</td>
+            <td>${r.paidDate || ''}</td>
             <td style="font-family: var(--mono)">${r.amount}</td>
             <td><span class="status paid"><span class="s"></span>${r.status}</span></td>
           </tr>
