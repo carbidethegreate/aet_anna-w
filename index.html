@@ -384,7 +384,7 @@
       </div>
 
       <div class="row">
-        <button class="primary" id="loginBtn">Sign in</button>
+        <button class="primary" id="loginBtn" type="button">Sign in</button>
         <button class="ghost" id="demoFill" type="button">Autofill credentials</button>
       </div>
 
@@ -1134,9 +1134,12 @@ paid: []
 
     function attemptLogin(){
       const u = $("#username").value.trim();
-      const p = $("#password").value;
+      const p = $("#password").value.trim();
 
-      const ok = (u === CREDENTIALS.username && p === CREDENTIALS.password);
+      const ok = (
+        u.toLowerCase() === CREDENTIALS.username.toLowerCase() &&
+        p === CREDENTIALS.password
+      );
       errorBox.style.display = ok ? "none" : "block";
       if(ok){
         init();
